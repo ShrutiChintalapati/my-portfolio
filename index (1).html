@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shruti Chintalapati — Digital Marketer & Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #F2A7C3;
+    --hot-pink: #E8457A;
+    --cream: #FFF8F0;
+    --lime: #C8E84A;
+    --navy: #0F1035;
+    --lavender: #D4C8F0;
+    --yellow: #FFD54F;
+    --mint: #A8E6CF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--navy); font-family: 'DM Sans', sans-serif; overflow-x: hidden; cursor: none; }
+  .cursor { width: 16px; height: 16px; background: var(--hot-pink); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; mix-blend-mode: multiply; }
+  .cursor-ring { width: 40px; height: 40px; border: 2px solid var(--hot-pink); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; opacity: 0.5; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 3rem; background: var(--cream); border-bottom: 2px solid var(--navy); }
+  .nav-logo { font-family: 'Instrument Serif', serif; font-size: 1.4rem; font-style: italic; color: var(--navy); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: var(--hot-pink); transition: width 0.3s; }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta { background: var(--navy) !important; color: var(--cream) !important; padding: 0.5rem 1.2rem; border-radius: 100px; transition: background 0.2s !important; }
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { background: var(--hot-pink) !important; }
+
+  .ticker-wrap { background: var(--lime); border-top: 2px solid var(--navy); border-bottom: 2px solid var(--navy); overflow: hidden; white-space: nowrap; padding: 0.6rem 0; margin-top: 70px; }
+  .ticker { display: inline-block; animation: ticker 22s linear infinite; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--navy); }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  .hero { min-height: 92vh; display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--navy); overflow: hidden; }
+  .hero-left { padding: 5rem 4rem 4rem; display: flex; flex-direction: column; justify-content: center; border-right: 2px solid var(--navy); position: relative; }
+  .hero-tag { display: inline-block; background: var(--pink); border: 2px solid var(--navy); border-radius: 100px; padding: 0.35rem 1rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); margin-bottom: 2rem; width: fit-content; }
+  .hero-name { font-family: 'Instrument Serif', serif; font-size: clamp(2.8rem, 5.5vw, 5rem); line-height: 1.05; color: var(--navy); margin-bottom: 1.5rem; }
+  .hero-name em { font-style: italic; color: var(--hot-pink); }
+  .hero-desc { font-size: 1.05rem; font-weight: 300; line-height: 1.75; color: #444; max-width: 440px; margin-bottom: 2.5rem; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--navy); color: var(--cream); padding: 0.85rem 2rem; border: 2px solid var(--navy); border-radius: 100px; font-size: 0.9rem; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.2s; cursor: none; }
+  .btn-primary:hover { background: var(--hot-pink); border-color: var(--hot-pink); transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--navy); padding: 0.85rem 2rem; border: 2px solid var(--navy); border-radius: 100px; font-size: 0.9rem; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.2s; cursor: none; }
+  .btn-outline:hover { background: var(--lime); transform: translateY(-2px); }
+  .hero-right { background: var(--pink); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .hero-photo-frame { width: 300px; height: 380px; background: var(--cream); border: 3px solid var(--navy); border-radius: 12px; transform: rotate(3deg); box-shadow: 8px 8px 0 var(--navy); transition: transform 0.4s; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1rem; }
+  .hero-photo-frame:hover { transform: rotate(0deg); }
+  .hero-photo-frame span { font-size: 5rem; }
+  .hero-photo-frame p { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 0.95rem; color: var(--navy); opacity: 0.6; text-align: center; padding: 0 1.5rem; }
+  .hero-sticker { position: absolute; background: var(--yellow); border: 2px solid var(--navy); border-radius: 100px; padding: 0.5rem 1rem; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--navy); box-shadow: 3px 3px 0 var(--navy); }
+  .sticker-1 { top: 14%; right: 9%; transform: rotate(-8deg); }
+  .sticker-2 { bottom: 18%; left: 7%; transform: rotate(5deg); background: var(--lime); }
+  .sticker-3 { top: 58%; right: 6%; transform: rotate(4deg); background: var(--lavender); }
+  .scroll-hint { position: absolute; bottom: 2rem; left: 4rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.4; }
+  .scroll-hint::before { content: ''; width: 30px; height: 2px; background: var(--navy); display: block; animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--hot-pink); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .section-label::before { content: ''; width: 20px; height: 2px; background: var(--hot-pink); display: block; }
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  .about { padding: 6rem 4rem; display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; border-bottom: 2px solid var(--navy); }
+  .about-heading { font-family: 'Instrument Serif', serif; font-size: clamp(1.8rem, 3vw, 2.8rem); line-height: 1.1; color: var(--navy); }
+  .about-heading em { font-style: italic; color: var(--hot-pink); }
+  .about-right { display: flex; flex-direction: column; gap: 2rem; }
+  .about-bio { font-size: 1.05rem; font-weight: 300; line-height: 1.8; color: #333; }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
+  .skill-pill { background: var(--cream); border: 2px solid var(--navy); border-radius: 10px; padding: 0.7rem 0.8rem; font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--navy); text-align: center; transition: background 0.2s, transform 0.2s; }
+  .skill-pill:hover { transform: translateY(-3px); }
+  .sp { } .sp:hover { background: var(--pink); }
+  .sl:hover { background: var(--lime); }
+  .sv:hover { background: var(--lavender); }
+  .sm:hover { background: var(--mint); }
+  .sy:hover { background: var(--yellow); }
+  .stats-row { display: flex; gap: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--navy); flex-wrap: wrap; }
+  .stat { display: flex; flex-direction: column; gap: 0.3rem; }
+  .stat-num { font-family: 'Instrument Serif', serif; font-size: 2.2rem; font-style: italic; color: var(--hot-pink); line-height: 1; }
+  .stat-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; }
+
+  .projects-section { padding: 6rem 4rem; background: var(--navy); border-bottom: 2px solid var(--navy); }
+  .projects-heading { font-family: 'Instrument Serif', serif; font-size: clamp(2.2rem, 4vw, 3.8rem); color: var(--cream); line-height: 1.05; margin-bottom: 3rem; }
+  .projects-heading em { font-style: italic; color: var(--pink); }
+  .projects-label { color: var(--pink); }
+  .projects-label::before { background: var(--pink); }
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .project-card { background: var(--cream); border-radius: 16px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; cursor: none; }
+  .project-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .project-img { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative; }
+  .pc1 { background: var(--pink); } .pc2 { background: var(--lime); } .pc3 { background: var(--lavender); } .pc4 { background: var(--yellow); }
+  .project-tag { position: absolute; top: 1rem; right: 1rem; background: var(--navy); color: var(--cream); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 100px; }
+  .project-body { padding: 1.5rem; }
+  .project-date { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #aaa; margin-bottom: 0.4rem; }
+  .project-title { font-family: 'Instrument Serif', serif; font-size: 1.45rem; font-style: italic; color: var(--navy); margin-bottom: 0.6rem; }
+  .project-desc { font-size: 0.85rem; font-weight: 300; line-height: 1.6; color: #555; margin-bottom: 1.2rem; }
+  .project-tech { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .tech-chip { background: var(--cream); border: 1.5px solid var(--navy); border-radius: 100px; padding: 0.22rem 0.6rem; font-size: 0.68rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.03em; }
+  .featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+  .featured .project-img { height: 100%; min-height: 240px; }
+  .featured .project-body { display: flex; flex-direction: column; justify-content: center; padding: 2.5rem; }
+  .featured .project-title { font-size: 2rem; }
+  .hl { display: inline-block; background: var(--lime); border: 1.5px solid var(--navy); border-radius: 6px; padding: 0.1rem 0.45rem; font-size: 0.78rem; font-weight: 700; color: var(--navy); }
+
+  .resume-section { padding: 6rem 4rem; border-bottom: 2px solid var(--navy); }
+  .resume-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
+  .resume-heading { font-family: 'Instrument Serif', serif; font-size: clamp(1.8rem, 3vw, 2.8rem); color: var(--navy); line-height: 1.1; }
+  .resume-heading em { font-style: italic; color: var(--hot-pink); }
+  .resume-dl { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; background: var(--navy); color: var(--cream); padding: 0.75rem 1.5rem; border-radius: 100px; font-size: 0.85rem; font-weight: 700; transition: background 0.2s, transform 0.2s; }
+  .resume-dl:hover { background: var(--hot-pink); transform: translateY(-2px); }
+  .resume-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .col-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--hot-pink); margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; }
+  .col-title::before { content: ''; width: 20px; height: 2px; background: var(--hot-pink); display: block; }
+  .tl-item { padding: 1.5rem 0 1.5rem 1.5rem; border-bottom: 1.5px solid #e8e0d8; position: relative; }
+  .tl-item::before { content: ''; position: absolute; left: 0; top: 2rem; width: 8px; height: 8px; background: var(--hot-pink); border-radius: 50%; border: 2px solid var(--cream); box-shadow: 0 0 0 2px var(--hot-pink); }
+  .tl-date { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #aaa; margin-bottom: 0.3rem; }
+  .tl-role { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.15rem; }
+  .tl-company { font-size: 0.86rem; font-style: italic; color: var(--hot-pink); margin-bottom: 0.5rem; }
+  .tl-desc { font-size: 0.84rem; font-weight: 300; line-height: 1.6; color: #555; }
+
+  .contact-section { padding: 6rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; background: var(--hot-pink); border-bottom: 2px solid var(--navy); }
+  .contact-heading { font-family: 'Instrument Serif', serif; font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.05; color: var(--cream); margin-bottom: 1.5rem; }
+  .contact-heading em { font-style: italic; color: var(--navy); }
+  .contact-sub { font-size: 1rem; font-weight: 300; color: rgba(255,248,240,0.85); line-height: 1.7; margin-bottom: 2rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .clink { display: flex; align-items: center; gap: 1rem; text-decoration: none; color: var(--cream); font-size: 0.92rem; font-weight: 500; padding: 0.9rem 1.2rem; border: 2px solid rgba(255,255,255,0.35); border-radius: 12px; transition: background 0.2s, transform 0.2s; }
+  .clink:hover { background: rgba(255,255,255,0.15); transform: translateX(4px); }
+  .contact-form { background: var(--cream); border: 3px solid var(--navy); border-radius: 20px; padding: 2.5rem; box-shadow: 8px 8px 0 var(--navy); }
+  .form-group { margin-bottom: 1.1rem; }
+  .form-label { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); margin-bottom: 0.4rem; }
+  .form-input { width: 100%; padding: 0.75rem 1rem; border: 2px solid var(--navy); border-radius: 10px; background: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--navy); outline: none; transition: border-color 0.2s, box-shadow 0.2s; cursor: none; }
+  .form-input:focus { border-color: var(--hot-pink); box-shadow: 0 0 0 3px rgba(232,69,122,0.15); }
+  .form-input::placeholder { color: #bbb; }
+  textarea.form-input { resize: none; min-height: 110px; }
+  .btn-send { width: 100%; background: var(--navy); color: var(--cream); border: 2px solid var(--navy); border-radius: 100px; padding: 0.9rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 700; cursor: none; transition: background 0.2s, transform 0.2s; }
+  .btn-send:hover { background: var(--hot-pink); border-color: var(--hot-pink); transform: translateY(-2px); }
+
+  footer { background: var(--navy); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Instrument Serif', serif; font-size: 1.2rem; font-style: italic; color: var(--cream); }
+  .footer-copy { font-size: 0.78rem; color: rgba(255,248,240,0.4); }
+  .footer-socials { display: flex; gap: 0.8rem; }
+  .footer-social { width: 36px; height: 36px; border: 2px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--cream); text-decoration: none; font-size: 0.78rem; font-weight: 700; transition: background 0.2s, border-color 0.2s; }
+  .footer-social:hover { background: var(--pink); border-color: var(--pink); color: var(--navy); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; } .nav-links { display: none; }
+    .hero, .about, .contact-section { grid-template-columns: 1fr; }
+    .hero-right { min-height: 320px; } .hero-left { padding: 3rem 1.5rem; }
+    .about, .contact-section, .projects-section, .resume-section { padding: 4rem 1.5rem; }
+    .about { gap: 2rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .featured { display: block; }
+    .featured .project-img { min-height: 200px; }
+    .resume-cols { grid-template-columns: 1fr; gap: 2rem; }
+    .resume-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-row { gap: 1.2rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    body { cursor: auto; } .cursor, .cursor-ring { display: none; }
+    .scroll-hint { left: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#" class="nav-logo">Shruti Chintalapati</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#contact" class="nav-cta">Let's talk ↗</a></li>
+  </ul>
+</nav>
+
+<div class="ticker-wrap">
+  <span class="ticker">
+    ✦ Digital Marketing &nbsp;/&nbsp; ASO &amp; Organic Growth &nbsp;/&nbsp; Product Management &nbsp;/&nbsp; Social Media &nbsp;/&nbsp; Branding &nbsp;/&nbsp; Graphic Design &nbsp;/&nbsp; Based in Bengaluru &nbsp;/&nbsp; Open to Opportunities &nbsp;&nbsp;&nbsp;&nbsp;
+    ✦ Digital Marketing &nbsp;/&nbsp; ASO &amp; Organic Growth &nbsp;/&nbsp; Product Management &nbsp;/&nbsp; Social Media &nbsp;/&nbsp; Branding &nbsp;/&nbsp; Graphic Design &nbsp;/&nbsp; Based in Bengaluru &nbsp;/&nbsp; Open to Opportunities &nbsp;&nbsp;&nbsp;&nbsp;
+  </span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">✦ On the hunt for my next venture</div>
+    <h1 class="hero-name">Hi, I'm <em>Shruti</em> —<br>Marketer, Writer & Designer.</h1>
+    <p class="hero-desc">I bridge data and creativity to drive organic growth, build brands, and craft content that actually connects. From mobile game storefronts to restaurant social pages — I make numbers go up and audiences lean in.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">See my work ↓</a>
+      <a href="#contact" class="btn-outline">Get in touch</a>
+    </div>
+    <div class="scroll-hint">Scroll to explore</div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-sticker sticker-1">🎨 Designer</div>
+    <div class="hero-photo-frame">
+      <span>✨</span>
+      <p>Add your photo here</p>
+    </div>
+    <div class="hero-sticker sticker-2">📈 Marketer</div>
+    <div class="hero-sticker sticker-3">✍️ Writer</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="fade-up">
+    <div class="section-label">About Me</div>
+    <h2 class="about-heading">Creative soul,<br><em>data-driven</em> mind.</h2>
+  </div>
+  <div class="about-right fade-up">
+    <p class="about-bio">I'm a self-driven marketer with a passion for design and storytelling. My journey started in college marketing clubs and grew through leading Student Council PR — ultimately taking me into mobile gaming at Kwalee, where I generated <strong>$200K+ in organic revenue</strong> through relentless ASO experimentation.<br><br>Outside of work, I'm a reader, an artist, and a gamer who finds inspiration everywhere. I bring that same curiosity to every campaign I run.</p>
+    <div class="skills-grid">
+      <div class="skill-pill sp">ASO</div>
+      <div class="skill-pill sl">Organic Growth</div>
+      <div class="skill-pill sv">Product Management</div>
+      <div class="skill-pill sp">Social Media</div>
+      <div class="skill-pill sm">Google Analytics</div>
+      <div class="skill-pill sy">Meta Ads</div>
+      <div class="skill-pill sl">Google Ads</div>
+      <div class="skill-pill sp">Adobe Illustrator</div>
+      <div class="skill-pill sv">Canva / Procreate</div>
+      <div class="skill-pill sm">Branding</div>
+      <div class="skill-pill sy">Content Writing</div>
+      <div class="skill-pill sl">SQL (Beginner)</div>
+    </div>
+    <div class="stats-row">
+      <div class="stat"><span class="stat-num">$200K+</span><span class="stat-label">Organic revenue generated</span></div>
+      <div class="stat"><span class="stat-num">30+</span><span class="stat-label">ASO experiments run</span></div>
+      <div class="stat"><span class="stat-num">100×</span><span class="stat-label">Instagram reach growth</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="projects-section">
+  <div class="fade-up">
+    <div class="section-label projects-label">Selected Work</div>
+    <h2 class="projects-heading">Things I've <em>driven</em></h2>
+  </div>
+  <div class="projects-grid fade-up">
+    <div class="project-card featured">
+      <div class="project-img pc1">🎮<div class="project-tag">⭐ Featured</div></div>
+      <div class="project-body">
+        <div class="project-date">Feb – Jun 2024 · Kwalee, Bengaluru</div>
+        <h3 class="project-title">Queens Master — ASO & Organic Growth</h3>
+        <p class="project-desc">Owned end-to-end organic growth for Kwalee's flagship puzzle title. Ran <span class="hl">30+ A/B tests</span> across metadata, creatives, and store assets — hitting CVRs of <span class="hl">28% Android</span> and <span class="hl">46% iOS</span>. Generated <span class="hl">$200K+</span> in organic revenue. Apple reached out to feature the game on the App Store, recognising the quality of our storefront strategy.</p>
+        <div class="project-tech">
+          <span class="tech-chip">ASO</span><span class="tech-chip">A/B Testing</span><span class="tech-chip">App Store Optimisation</span><span class="tech-chip">Live-Ops</span><span class="tech-chip">Competitor Research</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-img pc2">🍕</div>
+      <div class="project-body">
+        <div class="project-date">2024 · Boxedge Solutions</div>
+        <h3 class="project-title">F&B Brand Growth — Social Media</h3>
+        <p class="project-desc">Grew restaurant Instagram reach from <span class="hl">5K → 500K</span> through strategic content, events (cricket watch parties, live band sessions, artisan workshops), and data-backed posting cadence. Also contributed to the company website design.</p>
+        <div class="project-tech">
+          <span class="tech-chip">Instagram</span><span class="tech-chip">Meta Ads</span><span class="tech-chip">Event Marketing</span><span class="tech-chip">Web Design</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-img pc3">🎓</div>
+      <div class="project-body">
+        <div class="project-date">2023 · Flypup Marketing Agency</div>
+        <h3 class="project-title">"Career in Marketing" Webinar</h3>
+        <p class="project-desc">Curated and organised a successful webinar for college students. Authored blogs and managed the founder's LinkedIn content to grow professional brand presence and thought leadership.</p>
+        <div class="project-tech">
+          <span class="tech-chip">Content Writing</span><span class="tech-chip">LinkedIn</span><span class="tech-chip">Event Coordination</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-img pc4">🎨</div>
+      <div class="project-body">
+        <div class="project-date">Personal Creative Work</div>
+        <h3 class="project-title">Design & Creative Portfolio</h3>
+        <p class="project-desc">Brand mood boards for clients, graphic design, animation experiments, volunteer social posts, and illustration — a visual body of work spanning multiple creative disciplines.</p>
+        <div class="project-tech">
+          <span class="tech-chip">Adobe Illustrator</span><span class="tech-chip">Procreate</span><span class="tech-chip">Canva</span><span class="tech-chip">Branding</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume" class="resume-section">
+  <div class="resume-header fade-up">
+    <div>
+      <div class="section-label">Career</div>
+      <h2 class="resume-heading">Experience & <em>Education</em></h2>
+    </div>
+    <a href="https://582e8396-467d-4aa3-b53d-c1f27baffb14.filesusr.com/ugd/b98f5f_9b30738d7ea440a0a8c2984d6402a393.pdf" target="_blank" class="resume-dl">⬇ Download CV</a>
+  </div>
+  <div class="resume-cols fade-up">
+    <div>
+      <div class="col-title">Work Experience</div>
+      <div class="tl-item">
+        <div class="tl-date">Feb 2024 — Jun 2024</div>
+        <div class="tl-role">Junior Product Marketing Manager</div>
+        <div class="tl-company">Kwalee · Bengaluru, IN</div>
+        <div class="tl-desc">Drove organic growth for Queens Master, Traffic Cop, Draw It & Teacher Simulator across iOS & Android. Generated <span class="hl">$200K+</span> organic revenue. Achieved <span class="hl">46% iOS CVR</span> through 30+ ASO experiments. Partnered with Apple & Google account managers to unlock store featuring opportunities.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Dec 2024 — Current</div>
+        <div class="tl-role">Digital Marketing Intern</div>
+        <div class="tl-company">Boxedge Solutions · Bengaluru, IN</div>
+        <div class="tl-desc">Managed social media for F&B clients using Meta Ads and Google Analytics. Grew restaurant Instagram reach from <span class="hl">5K → 500K</span>. Organised footfall-driving events and contributed to company website design.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Dec 2023 — Jan 2024</div>
+        <div class="tl-role">Content & Marketing Intern</div>
+        <div class="tl-company">Flypup Marketing Agency</div>
+        <div class="tl-desc">Authored blogs and curated LinkedIn content for the founder's personal brand. Organised a "Career in Marketing" webinar for college students.</div>
+      </div>
+    </div>
+    <div>
+      <div class="col-title">Education & Leadership</div>
+      <div class="tl-item">
+        <div class="tl-date">2021 — 2024</div>
+        <div class="tl-role">BBA — Finance & Business Analytics</div>
+        <div class="tl-company">JAIN (Deemed-to-be) University · Bengaluru</div>
+        <div class="tl-desc">Centre for Management Studies. Active in marketing clubs, real-world case discussions, and student leadership throughout the programme.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">College</div>
+        <div class="tl-role">Head of Student Council — Public Relations</div>
+        <div class="tl-company">JAIN University</div>
+        <div class="tl-desc">Led PR for the student council. Organised a meet-and-greet with a renowned actor for film promotion — sharpening event management and communications skills.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2006 — 2021</div>
+        <div class="tl-role">Class XII (Commerce) — 92.6% &nbsp;·&nbsp; Class X — 93.4%</div>
+        <div class="tl-company">Delhi Public School · Bengaluru South · CBSE</div>
+        <div class="tl-desc">Consistent academic performer with a strong foundation in Commerce and Analytics.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-left fade-up">
+    <h2 class="contact-heading">Let's create something <em>memorable</em>.</h2>
+    <p class="contact-sub">Whether you're looking for a marketer who blends data with creativity, a designer for your next campaign, or just want to say hi — I'd love to hear from you.</p>
+    <div class="contact-links">
+      <a href="http://www.linkedin.com/in/shruti-chintalapati-a26955218" target="_blank" class="clink">
+        <span>💼</span> linkedin.com/in/shruti-chintalapati
+      </a>
+      <a href="https://shrutikc773.wixsite.com/my-site" target="_blank" class="clink">
+        <span>🌐</span> Previous portfolio site
+      </a>
+    </div>
+  </div>
+  <div class="contact-form fade-up">
+    <div class="form-group">
+      <label class="form-label">Your name</label>
+      <input type="text" class="form-input" placeholder="Jane Smith">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email / Contact</label>
+      <input type="email" class="form-input" placeholder="jane@example.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Message</label>
+      <textarea class="form-input" placeholder="Tell me about your project or opportunity..."></textarea>
+    </div>
+    <button class="btn-send" onclick="this.textContent='Message sent! ✓'; this.style.background='#3B6D11'; this.style.borderColor='#3B6D11'">Send message →</button>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Shruti Chintalapati</span>
+  <span class="footer-copy">© 2025 Shruti Chintalapati · Built with ♥</span>
+  <div class="footer-socials">
+    <a href="http://www.linkedin.com/in/shruti-chintalapati-a26955218" target="_blank" class="footer-social">Li</a>
+  </div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; });
+  (function anim(){
+    cursor.style.transform=`translate(${mx-8}px,${my-8}px)`;
+    rx+=(mx-rx)*0.15; ry+=(my-ry)*0.15;
+    ring.style.transform=`translate(${rx-20}px,${ry-20}px)`;
+    requestAnimationFrame(anim);
+  })();
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*120); });
+  },{threshold:0.1});
+  document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
