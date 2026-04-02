@@ -85,17 +85,24 @@
   .stat-num { font-family: 'Instrument Serif', serif; font-size: 2.2rem; font-style: italic; color: var(--hot-pink); line-height: 1; }
   .stat-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; }
 
+  /* ── PROJECTS ── */
   .projects-section { padding: 6rem 4rem; background: var(--navy); border-bottom: 2px solid var(--navy); }
   .projects-heading { font-family: 'Instrument Serif', serif; font-size: clamp(2.2rem, 4vw, 3.8rem); color: var(--cream); line-height: 1.05; margin-bottom: 3rem; }
   .projects-heading em { font-style: italic; color: var(--pink); }
   .projects-label { color: var(--pink); }
   .projects-label::before { background: var(--pink); }
   .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-  .project-card { background: var(--cream); border-radius: 16px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; cursor: none; }
+
+  .project-card { background: var(--cream); border-radius: 16px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; cursor: none; position: relative; }
   .project-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
-  .project-img { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative; }
+
+  /* "click to view" hint that appears on hover over the image area */
+  .project-img { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative; overflow: hidden; }
   .pc1 { background: var(--pink); } .pc2 { background: var(--lime); } .pc3 { background: var(--lavender); } .pc4 { background: var(--yellow); }
   .project-tag { position: absolute; top: 1rem; right: 1rem; background: var(--navy); color: var(--cream); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 100px; }
+  .view-hint { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(15,16,53,0.82), transparent); color: var(--cream); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-align: center; padding: 1.4rem 1rem 0.75rem; opacity: 0; transition: opacity 0.25s; pointer-events: none; }
+  .project-card:hover .view-hint { opacity: 1; }
+
   .project-body { padding: 1.5rem; }
   .project-date { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #aaa; margin-bottom: 0.4rem; }
   .project-title { font-family: 'Instrument Serif', serif; font-size: 1.45rem; font-style: italic; color: var(--navy); margin-bottom: 0.6rem; }
@@ -108,6 +115,51 @@
   .featured .project-title { font-size: 2rem; }
   .hl { display: inline-block; background: var(--lime); border: 1.5px solid var(--navy); border-radius: 6px; padding: 0.1rem 0.45rem; font-size: 0.78rem; font-weight: 700; color: var(--navy); }
 
+  /* ── LIGHTBOX OVERLAY ── */
+  .lb-overlay { display: none; position: fixed; inset: 0; background: rgba(10,10,25,0.9); z-index: 500; justify-content: center; align-items: center; padding: 1.5rem; }
+  .lb-overlay.open { display: flex; }
+  .lb-box { background: var(--cream); border: 3px solid var(--navy); border-radius: 20px; width: 100%; max-width: 880px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 12px 12px 0 var(--navy); animation: lbIn 0.28s ease; }
+  @keyframes lbIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .lb-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 1.6rem 2rem 1.2rem; border-bottom: 2px solid var(--navy); flex-shrink: 0; }
+  .lb-title { font-family: 'Instrument Serif', serif; font-size: 1.65rem; font-style: italic; color: var(--navy); line-height: 1.2; }
+  .lb-close { width: 36px; height: 36px; border-radius: 50%; background: var(--navy); color: var(--cream); border: none; font-size: 1rem; display: flex; align-items: center; justify-content: center; cursor: none; flex-shrink: 0; transition: background 0.2s; }
+  .lb-close:hover { background: var(--hot-pink); }
+
+  .lb-body { overflow-y: auto; padding: 1.6rem 2rem 2rem; flex: 1; }
+  .lb-date { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #aaa; margin-bottom: 0.6rem; }
+  .lb-desc { font-size: 0.92rem; font-weight: 300; line-height: 1.75; color: #333; margin-bottom: 1.2rem; }
+  .lb-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 2rem; padding-bottom: 1.6rem; border-bottom: 1.5px solid #e8e0d8; }
+
+  .lb-gallery-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--hot-pink); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  .lb-gallery-label::before { content: ''; width: 16px; height: 2px; background: var(--hot-pink); display: block; }
+
+  .lb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 0.8rem; }
+  .lb-img-wrap { border: 2px solid var(--navy); border-radius: 10px; overflow: hidden; aspect-ratio: 4/3; background: #e8e0d8; cursor: none; }
+  .lb-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+  .lb-img-wrap:hover img { transform: scale(1.05); }
+
+  /* placeholder tiles shown when no images are added yet */
+  .lb-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; }
+  .lb-placeholder span { font-size: 2rem; }
+  .lb-placeholder p { font-size: 0.7rem; font-weight: 500; color: #aaa; text-align: center; line-height: 1.4; }
+
+  .lb-add-note { margin-top: 1.4rem; padding: 1rem 1.2rem; background: #f5ede5; border: 1.5px dashed #ccc; border-radius: 10px; font-size: 0.8rem; color: #888; line-height: 1.6; text-align: center; }
+  .lb-add-note strong { color: var(--navy); }
+  .lb-add-note code { background: #e8ddd5; padding: 0.1rem 0.3rem; border-radius: 4px; font-size: 0.75rem; color: var(--navy); }
+
+  /* ── FULL-SIZE IMAGE VIEWER ── */
+  .lb-viewer { display: none; position: fixed; inset: 0; background: rgba(5,5,15,0.96); z-index: 600; justify-content: center; align-items: center; }
+  .lb-viewer.open { display: flex; }
+  .lb-viewer-img { max-width: 88vw; max-height: 86vh; border-radius: 8px; border: 2px solid rgba(255,255,255,0.12); object-fit: contain; }
+  .lb-viewer-close { position: absolute; top: 1.4rem; right: 1.4rem; width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.1); color: #fff; border: 2px solid rgba(255,255,255,0.25); font-size: 1.1rem; display: flex; align-items: center; justify-content: center; cursor: none; transition: background 0.2s; }
+  .lb-viewer-close:hover { background: var(--hot-pink); border-color: var(--hot-pink); }
+  .lb-viewer-prev, .lb-viewer-next { position: absolute; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.1); color: #fff; border: 2px solid rgba(255,255,255,0.2); font-size: 1.3rem; display: flex; align-items: center; justify-content: center; cursor: none; transition: background 0.2s; }
+  .lb-viewer-prev { left: 1.4rem; } .lb-viewer-next { right: 1.4rem; }
+  .lb-viewer-prev:hover, .lb-viewer-next:hover { background: var(--hot-pink); border-color: var(--hot-pink); }
+  .lb-viewer-counter { position: absolute; bottom: 1.4rem; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.45); font-size: 0.8rem; font-weight: 500; }
+
+  /* ── RESUME ── */
   .resume-section { padding: 6rem 4rem; border-bottom: 2px solid var(--navy); }
   .resume-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
   .resume-heading { font-family: 'Instrument Serif', serif; font-size: clamp(1.8rem, 3vw, 2.8rem); color: var(--navy); line-height: 1.1; }
@@ -124,6 +176,7 @@
   .tl-company { font-size: 0.86rem; font-style: italic; color: var(--hot-pink); margin-bottom: 0.5rem; }
   .tl-desc { font-size: 0.84rem; font-weight: 300; line-height: 1.6; color: #555; }
 
+  /* ── CONTACT ── */
   .contact-section { padding: 6rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; background: var(--hot-pink); border-bottom: 2px solid var(--navy); }
   .contact-heading { font-family: 'Instrument Serif', serif; font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.05; color: var(--cream); margin-bottom: 1.5rem; }
   .contact-heading em { font-style: italic; color: var(--navy); }
@@ -141,6 +194,7 @@
   .btn-send { width: 100%; background: var(--navy); color: var(--cream); border: 2px solid var(--navy); border-radius: 100px; padding: 0.9rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 700; cursor: none; transition: background 0.2s, transform 0.2s; }
   .btn-send:hover { background: var(--hot-pink); border-color: var(--hot-pink); transform: translateY(-2px); }
 
+  /* ── FOOTER ── */
   footer { background: var(--navy); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
   .footer-logo { font-family: 'Instrument Serif', serif; font-size: 1.2rem; font-style: italic; color: var(--cream); }
   .footer-copy { font-size: 0.78rem; color: rgba(255,248,240,0.4); }
@@ -148,6 +202,7 @@
   .footer-social { width: 36px; height: 36px; border: 2px solid rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--cream); text-decoration: none; font-size: 0.78rem; font-weight: 700; transition: background 0.2s, border-color 0.2s; }
   .footer-social:hover { background: var(--pink); border-color: var(--pink); color: var(--navy); }
 
+  /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; } .nav-links { display: none; }
     .hero, .about, .contact-section { grid-template-columns: 1fr; }
@@ -164,6 +219,10 @@
     footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
     body { cursor: auto; } .cursor, .cursor-ring { display: none; }
     .scroll-hint { left: 1.5rem; }
+    .lb-box { max-height: 95vh; }
+    .lb-header { padding: 1.2rem 1.2rem 1rem; }
+    .lb-body { padding: 1.2rem; }
+    .lb-viewer-prev { left: 0.5rem; } .lb-viewer-next { right: 0.5rem; }
   }
 </style>
 </head>
@@ -172,6 +231,7 @@
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
+<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">Shruti Chintalapati</a>
   <ul class="nav-links">
@@ -182,6 +242,7 @@
   </ul>
 </nav>
 
+<!-- TICKER -->
 <div class="ticker-wrap">
   <span class="ticker">
     ✦ Digital Marketing &nbsp;/&nbsp; ASO &amp; Organic Growth &nbsp;/&nbsp; Product Management &nbsp;/&nbsp; Social Media &nbsp;/&nbsp; Branding &nbsp;/&nbsp; Graphic Design &nbsp;/&nbsp; Based in Bengaluru &nbsp;/&nbsp; Open to Opportunities &nbsp;&nbsp;&nbsp;&nbsp;
@@ -193,7 +254,7 @@
 <section class="hero">
   <div class="hero-left">
     <div class="hero-tag">✦ On the hunt for my next venture</div>
-    <h1 class="hero-name">Hi, I'm <em>Shruti</em> —<br>Marketer, Writer & Designer.</h1>
+    <h1 class="hero-name">Hi, I'm <em>Shruti</em> —<br>Marketer, Writer &amp; Designer.</h1>
     <p class="hero-desc">I bridge data and creativity to drive organic growth, build brands, and craft content that actually connects. From mobile game storefronts to restaurant social pages — I make numbers go up and audiences lean in.</p>
     <div class="hero-btns">
       <a href="#projects" class="btn-primary">See my work ↓</a>
@@ -219,7 +280,7 @@
     <h2 class="about-heading">Creative soul,<br><em>data-driven</em> mind.</h2>
   </div>
   <div class="about-right fade-up">
-    <p class="about-bio">I'm a self-driven marketer with a passion for design and storytelling. My journey started in college marketing clubs and grew through leading Student Council PR — ultimately taking me into mobile gaming at Kwalee, where I generated <strong>$200K+ in organic revenue</strong> through relentless ASO experimentation.<br><br>Outside of work, I'm a reader, an artist, and a gamer who finds inspiration everywhere. I bring that same curiosity to every campaign I run.</p>
+    <p class="about-bio">I'm a self-driven marketer with a passion for design and storytelling. My journey started in college through participating in marketing clubs, which led me to be part of the Student Council as a PR representative. This paved the path that led me to mobile gaming at Kwalee, where I generated <strong>$200K+ in organic revenue for a single title</strong> through relentless ASO experimentation.<br><br>Outside of work, I'm a reader, an artist, and a gamer who finds inspiration everywhere. I bring that same curiosity to every campaign I run.</p>
     <div class="skills-grid">
       <div class="skill-pill sp">ASO</div>
       <div class="skill-pill sl">Organic Growth</div>
@@ -235,12 +296,48 @@
       <div class="skill-pill sl">SQL (Beginner)</div>
     </div>
     <div class="stats-row">
-      <div class="stat"><span class="stat-num">$200K+</span><span class="stat-label">Organic revenue generated</span></div>
+      <div class="stat"><span class="stat-num">$800K+</span><span class="stat-label">Organic revenue generated</span></div>
       <div class="stat"><span class="stat-num">30+</span><span class="stat-label">ASO experiments run</span></div>
-      <div class="stat"><span class="stat-num">100×</span><span class="stat-label">Instagram reach growth</span></div>
+      <div class="stat"><span class="stat-num">1M</span><span class="stat-label">Instagram reach growth</span></div>
     </div>
   </div>
 </section>
+
+<!-- ═══════════════════════════════════════════
+     LIGHTBOX MODAL
+     To add images: put files in an images/ folder
+     in your repo, then fill in data-images on each
+     card below, e.g.:
+       data-images="images/pic1.jpg,images/pic2.jpg"
+     ═══════════════════════════════════════════ -->
+<div class="lb-overlay" id="lbOverlay" onclick="if(event.target===this)closeLb()">
+  <div class="lb-box">
+    <div class="lb-header">
+      <div class="lb-title" id="lbTitle"></div>
+      <button class="lb-close" onclick="closeLb()">✕</button>
+    </div>
+    <div class="lb-body">
+      <div class="lb-date" id="lbDate"></div>
+      <p class="lb-desc" id="lbDesc"></p>
+      <div class="lb-chips" id="lbChips"></div>
+      <div class="lb-gallery-label">Work samples</div>
+      <div class="lb-grid" id="lbGrid"></div>
+      <div class="lb-add-note" id="lbNote">
+        <strong>To add your images:</strong> create an <code>images/</code> folder in your GitHub repo, upload your files, then set the <code>data-images</code> attribute on each project card.<br>
+        Example: <code>data-images="images/screenshot1.jpg,images/result.png"</code>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FULL-SIZE VIEWER -->
+<div class="lb-viewer" id="lbViewer" onclick="if(event.target===this)closeViewer()">
+  <button class="lb-viewer-close" onclick="closeViewer()">✕</button>
+  <button class="lb-viewer-prev" onclick="stepViewer(-1)">‹</button>
+  <img class="lb-viewer-img" id="lbViewerImg" src="" alt="Work sample">
+  <button class="lb-viewer-next" onclick="stepViewer(1)">›</button>
+  <div class="lb-viewer-counter" id="lbViewerCounter"></div>
+</div>
 
 <!-- PROJECTS -->
 <section id="projects" class="projects-section">
@@ -249,53 +346,96 @@
     <h2 class="projects-heading">Things I've <em>driven</em></h2>
   </div>
   <div class="projects-grid fade-up">
-    <div class="project-card featured">
-      <div class="project-img pc1">🎮<div class="project-tag">⭐ Featured</div></div>
+
+    <!-- ★ FEATURED — add your images to data-images below -->
+    <div class="project-card featured"
+         onclick="openLb(this)"
+         data-title="Queens Master — ASO &amp; Organic Growth"
+         data-date="Dec 2024 – Current · Kwalee Ltd., Bengaluru"
+         data-desc="Owned end-to-end organic growth for Kwalee's flagship puzzle title. Ran 30+ A/B tests across metadata, creatives, and store assets — hitting CVRs of 28% on Android and 46% on iOS. Generated $200K+ in organic revenue and helped kick off the title with initial prototype testing. Apple reached out to feature the game on the App Store, recognising the quality of our storefront strategy."
+         data-chips="ASO,A/B Testing,Facebook Campaigns,Live-Ops,Competitor Research"
+         data-images="">
+      <div class="project-img pc1">
+        🎮
+        <div class="project-tag">⭐ Featured</div>
+        <div class="view-hint">Click to view work →</div>
+      </div>
       <div class="project-body">
-        <div class="project-date">Feb – Jun 2024 · Kwalee, Bengaluru</div>
-        <h3 class="project-title">Queens Master — ASO & Organic Growth</h3>
-        <p class="project-desc">Owned end-to-end organic growth for Kwalee's flagship puzzle title. Ran <span class="hl">30+ A/B tests</span> across metadata, creatives, and store assets — hitting CVRs of <span class="hl">28% Android</span> and <span class="hl">46% iOS</span>. Generated <span class="hl">$200K+</span> in organic revenue. Apple reached out to feature the game on the App Store, recognising the quality of our storefront strategy.</p>
+        <div class="project-date">Dec 2024 – Current · Kwalee Ltd., Bengaluru</div>
+        <h3 class="project-title">Queens Master — ASO &amp; Organic Growth</h3>
+        <p class="project-desc">Owned end-to-end organic growth for Kwalee's flagship puzzle title. Ran <span class="hl">30+ A/B tests</span> across metadata, creatives, and store assets — hitting CVRs of <span class="hl">28% Android</span> and <span class="hl">46% iOS</span>. Generated <span class="hl">$200K+</span> in organic revenue and helped kick off the title with initial prototype testing. Apple reached out to feature the game on the App Store.</p>
         <div class="project-tech">
-          <span class="tech-chip">ASO</span><span class="tech-chip">A/B Testing</span><span class="tech-chip">App Store Optimisation</span><span class="tech-chip">Live-Ops</span><span class="tech-chip">Competitor Research</span>
+          <span class="tech-chip">ASO</span><span class="tech-chip">A/B Testing</span><span class="tech-chip">Facebook Campaigns</span><span class="tech-chip">Live-Ops</span><span class="tech-chip">Competitor Research</span>
         </div>
       </div>
     </div>
 
-    <div class="project-card">
-      <div class="project-img pc2">🍕</div>
+    <!-- add your images to data-images below -->
+    <div class="project-card"
+         onclick="openLb(this)"
+         data-title="F&amp;B Brand Growth — Social Media"
+         data-date="Feb 2024 – July 2024 · Boxedge Solutions, Marketing Agency"
+         data-desc="Grew restaurant Instagram reach from 5K to 1M through strategic content, events (cricket watch parties, live band sessions, artisan workshops), and data-backed posting cadence. Also contributed to the company website design and carefully curated the content for it."
+         data-chips="Instagram,Meta Ads,Event Marketing,Web Design"
+         data-images="">
+      <div class="project-img pc2">
+        🍕
+        <div class="view-hint">Click to view work →</div>
+      </div>
       <div class="project-body">
-        <div class="project-date">2024 · Boxedge Solutions</div>
-        <h3 class="project-title">F&B Brand Growth — Social Media</h3>
-        <p class="project-desc">Grew restaurant Instagram reach from <span class="hl">5K → 500K</span> through strategic content, events (cricket watch parties, live band sessions, artisan workshops), and data-backed posting cadence. Also contributed to the company website design.</p>
+        <div class="project-date">Feb 2024 – July 2024 · Boxedge Solutions</div>
+        <h3 class="project-title">F&amp;B Brand Growth — Social Media</h3>
+        <p class="project-desc">Grew restaurant Instagram reach from <span class="hl">5K → 1M</span> through strategic content, events (cricket watch parties, live band sessions, artisan workshops), and data-backed posting cadence. Also contributed to the company website design and carefully curated the content for it.</p>
         <div class="project-tech">
           <span class="tech-chip">Instagram</span><span class="tech-chip">Meta Ads</span><span class="tech-chip">Event Marketing</span><span class="tech-chip">Web Design</span>
         </div>
       </div>
     </div>
 
-    <div class="project-card">
-      <div class="project-img pc3">🎓</div>
+    <!-- add your images to data-images below -->
+    <div class="project-card"
+         onclick="openLb(this)"
+         data-title='"Career in Marketing" Webinar'
+         data-date="Dec 2023 – Jan 2024 · Flypup Marketing Agency"
+         data-desc="Curated and organised a successful webinar for college students. Authored blogs and managed the founder's LinkedIn content to grow her professional brand presence and thought leadership."
+         data-chips="Content Writing,LinkedIn,Event Coordination"
+         data-images="">
+      <div class="project-img pc3">
+        🎓
+        <div class="view-hint">Click to view work →</div>
+      </div>
       <div class="project-body">
-        <div class="project-date">2023 · Flypup Marketing Agency</div>
+        <div class="project-date">Dec 2023 – Jan 2024 · Flypup Marketing Agency</div>
         <h3 class="project-title">"Career in Marketing" Webinar</h3>
-        <p class="project-desc">Curated and organised a successful webinar for college students. Authored blogs and managed the founder's LinkedIn content to grow professional brand presence and thought leadership.</p>
+        <p class="project-desc">Curated and organised a successful webinar for college students. Authored blogs and managed the founder's LinkedIn content to grow her professional brand presence and thought leadership.</p>
         <div class="project-tech">
           <span class="tech-chip">Content Writing</span><span class="tech-chip">LinkedIn</span><span class="tech-chip">Event Coordination</span>
         </div>
       </div>
     </div>
 
-    <div class="project-card">
-      <div class="project-img pc4">🎨</div>
+    <!-- add your images to data-images below -->
+    <div class="project-card"
+         onclick="openLb(this)"
+         data-title="Design &amp; Creative Portfolio"
+         data-date="Personal Creative Work"
+         data-desc="Brand mood boards for clients, graphic design, animation experiments, volunteer social posts, and illustration — a visual body of work spanning multiple creative disciplines."
+         data-chips="Adobe Illustrator,Procreate,Canva,Branding"
+         data-images="">
+      <div class="project-img pc4">
+        🎨
+        <div class="view-hint">Click to view work →</div>
+      </div>
       <div class="project-body">
         <div class="project-date">Personal Creative Work</div>
-        <h3 class="project-title">Design & Creative Portfolio</h3>
+        <h3 class="project-title">Design &amp; Creative Portfolio</h3>
         <p class="project-desc">Brand mood boards for clients, graphic design, animation experiments, volunteer social posts, and illustration — a visual body of work spanning multiple creative disciplines.</p>
         <div class="project-tech">
           <span class="tech-chip">Adobe Illustrator</span><span class="tech-chip">Procreate</span><span class="tech-chip">Canva</span><span class="tech-chip">Branding</span>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -304,7 +444,7 @@
   <div class="resume-header fade-up">
     <div>
       <div class="section-label">Career</div>
-      <h2 class="resume-heading">Experience & <em>Education</em></h2>
+      <h2 class="resume-heading">Experience &amp; <em>Education</em></h2>
     </div>
     <a href="https://582e8396-467d-4aa3-b53d-c1f27baffb14.filesusr.com/ugd/b98f5f_9b30738d7ea440a0a8c2984d6402a393.pdf" target="_blank" class="resume-dl">⬇ Download CV</a>
   </div>
@@ -315,26 +455,26 @@
         <div class="tl-date">Feb 2024 — Jun 2024</div>
         <div class="tl-role">Junior Product Marketing Manager</div>
         <div class="tl-company">Kwalee · Bengaluru, IN</div>
-        <div class="tl-desc">Drove organic growth for Queens Master, Traffic Cop, Draw It & Teacher Simulator across iOS & Android. Generated <span class="hl">$200K+</span> organic revenue. Achieved <span class="hl">46% iOS CVR</span> through 30+ ASO experiments. Partnered with Apple & Google account managers to unlock store featuring opportunities.</div>
+        <div class="tl-desc">Drove organic growth for Queens Master, Traffic Cop, Draw It &amp; Teacher Simulator across iOS &amp; Android. Generated <span class="hl">$200K+</span> organic revenue. Achieved <span class="hl">46% iOS CVR</span> through 30+ ASO experiments. Partnered with Apple &amp; Google account managers to unlock store featuring opportunities.</div>
       </div>
       <div class="tl-item">
         <div class="tl-date">Dec 2024 — Current</div>
         <div class="tl-role">Digital Marketing Intern</div>
         <div class="tl-company">Boxedge Solutions · Bengaluru, IN</div>
-        <div class="tl-desc">Managed social media for F&B clients using Meta Ads and Google Analytics. Grew restaurant Instagram reach from <span class="hl">5K → 500K</span>. Organised footfall-driving events and contributed to company website design.</div>
+        <div class="tl-desc">Managed social media for F&amp;B clients using Meta Ads and Google Analytics. Grew restaurant Instagram reach from <span class="hl">5K → 1M</span>. Organised footfall-driving events and contributed to company website design.</div>
       </div>
       <div class="tl-item">
         <div class="tl-date">Dec 2023 — Jan 2024</div>
-        <div class="tl-role">Content & Marketing Intern</div>
+        <div class="tl-role">Content &amp; Marketing Intern</div>
         <div class="tl-company">Flypup Marketing Agency</div>
         <div class="tl-desc">Authored blogs and curated LinkedIn content for the founder's personal brand. Organised a "Career in Marketing" webinar for college students.</div>
       </div>
     </div>
     <div>
-      <div class="col-title">Education & Leadership</div>
+      <div class="col-title">Education &amp; Leadership</div>
       <div class="tl-item">
         <div class="tl-date">2021 — 2024</div>
-        <div class="tl-role">BBA — Finance & Business Analytics</div>
+        <div class="tl-role">BBA — Finance &amp; Business Analytics</div>
         <div class="tl-company">JAIN (Deemed-to-be) University · Bengaluru</div>
         <div class="tl-desc">Centre for Management Studies. Active in marketing clubs, real-world case discussions, and student leadership throughout the programme.</div>
       </div>
@@ -385,6 +525,7 @@
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <span class="footer-logo">Shruti Chintalapati</span>
   <span class="footer-copy">© 2025 Shruti Chintalapati · Built with ♥</span>
@@ -394,20 +535,92 @@
 </footer>
 
 <script>
+  /* ── CURSOR ── */
   const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; });
-  (function anim(){
-    cursor.style.transform=`translate(${mx-8}px,${my-8}px)`;
-    rx+=(mx-rx)*0.15; ry+=(my-ry)*0.15;
-    ring.style.transform=`translate(${rx-20}px,${ry-20}px)`;
+  const ring   = document.getElementById('cursorRing');
+  let mx=0, my=0, rx=0, ry=0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function anim() {
+    cursor.style.transform = `translate(${mx-8}px,${my-8}px)`;
+    rx += (mx-rx)*0.15; ry += (my-ry)*0.15;
+    ring.style.transform = `translate(${rx-20}px,${ry-20}px)`;
     requestAnimationFrame(anim);
   })();
-  const obs = new IntersectionObserver(entries=>{
-    entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*120); });
-  },{threshold:0.1});
-  document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+  /* ── SCROLL REVEAL ── */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i*120);
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  /* ── LIGHTBOX ── */
+  let viewerImgs = [], viewerIdx = 0;
+
+  function openLb(card) {
+    document.getElementById('lbTitle').innerHTML = card.dataset.title;
+    document.getElementById('lbDate').textContent  = card.dataset.date || '';
+    document.getElementById('lbDesc').textContent  = card.dataset.desc || '';
+
+    // chips
+    const chips = (card.dataset.chips || '').split(',').filter(Boolean);
+    document.getElementById('lbChips').innerHTML =
+      chips.map(c => `<span class="tech-chip">${c.trim()}</span>`).join('');
+
+    // images
+    const raw   = (card.dataset.images || '').split(',').filter(s => s.trim());
+    viewerImgs  = raw;
+    const grid  = document.getElementById('lbGrid');
+    const note  = document.getElementById('lbNote');
+
+    if (raw.length) {
+      note.style.display = 'none';
+      grid.innerHTML = raw.map((src, i) => `
+        <div class="lb-img-wrap" onclick="openViewer(${i})">
+          <img src="${src.trim()}" alt="Work sample ${i+1}" loading="lazy">
+        </div>`).join('');
+    } else {
+      note.style.display = 'block';
+      grid.innerHTML = `
+        <div class="lb-img-wrap"><div class="lb-placeholder"><span>🖼️</span><p>Your screenshots<br>go here</p></div></div>
+        <div class="lb-img-wrap"><div class="lb-placeholder"><span>📊</span><p>Results &amp;<br>data visuals</p></div></div>
+        <div class="lb-img-wrap"><div class="lb-placeholder"><span>✨</span><p>Designs &amp;<br>creative work</p></div></div>`;
+    }
+
+    document.getElementById('lbOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLb() {
+    document.getElementById('lbOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  /* ── FULL-SIZE VIEWER ── */
+  function openViewer(idx) {
+    if (!viewerImgs.length) return;
+    viewerIdx = idx;
+    document.getElementById('lbViewerImg').src = viewerImgs[idx].trim();
+    document.getElementById('lbViewerCounter').textContent = `${idx+1} / ${viewerImgs.length}`;
+    document.getElementById('lbViewer').classList.add('open');
+  }
+
+  function closeViewer() {
+    document.getElementById('lbViewer').classList.remove('open');
+  }
+
+  function stepViewer(dir) {
+    viewerIdx = (viewerIdx + dir + viewerImgs.length) % viewerImgs.length;
+    openViewer(viewerIdx);
+  }
+
+  /* keyboard shortcuts */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape')      { closeLb(); closeViewer(); }
+    if (e.key === 'ArrowRight')  stepViewer(1);
+    if (e.key === 'ArrowLeft')   stepViewer(-1);
+  });
 </script>
 </body>
 </html>
